@@ -6,5 +6,10 @@
 
 .thumbnail_div {
     display: grid;
-    grid-template-columns: 120px 150px 200px 120px 150px;
+    grid-template-columns: 120px 150px 200px;
+}
+
+.fullInfo_div {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
 }
