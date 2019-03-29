@@ -8,10 +8,10 @@ import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
-import productsReducer from './store/reducers/productsReducer';
+import itemsReducer from './store/reducers/itemsReducer';
 
 const rootReducer = combineReducers({
-    products: productsReducer
+    items: itemsReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

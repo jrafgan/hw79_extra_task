@@ -8,14 +8,18 @@ const styles = {
     marginRight: '10px',
 };
 
-const ProductThumbnail = props => {
+const ItemThumbnail = props => {
     console.log(props.image);
-    let image = imageNotAvailable;
+    let image = '';
+
     if (props.image) {
         image = apiURL + '/uploads/' + props.image;
+        if (props.image === "null") {
+            image = imageNotAvailable;
+        }
     }
 
-    return <img src={image} style={styles} className='img-thumbnail' alt='Product' />
+    return <img src={image} style={styles} className='img-thumbnail' alt='Item' />
 };
 
-export default ProductThumbnail;
+export default ItemThumbnail;

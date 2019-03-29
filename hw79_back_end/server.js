@@ -1,6 +1,7 @@
 const express = require('express');
-const products = require('./app/products');
+const items = require('./app/items');
 const categories = require('./app/categories');
+const places = require('./app/places');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
@@ -11,17 +12,18 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-const port = 8001;
+const port = 8003;
 
 const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'user',
   password : '1qaz@WSX29',
-  database : 'shop2'
+  database : 'hw79_extra'
 });
 
-app.use('/products', products(connection));
+app.use('/items', items(connection));
 app.use('/categories', categories(connection));
+app.use('/places', places(connection));
 
 connection.connect((err)=>{
   if (err) {

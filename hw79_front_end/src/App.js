@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from 'react';
-import {Container} from "reactstrap";
 import {Route, Switch} from "react-router-dom";
-
 import Toolbar from "./components/UI/Toolbar/Toolbar";
-import Products from "./containers/Products/Products";
-import NewProduct from "./containers/NewProduct/NewProduct";
+import Items from "./containers/Items/Items";
+import NewItem from "./containers/NewItem/NewItem";
+import './App.css'
+import fullInfo from "./components/fullInfo/fullInfo";
 
 class App extends Component {
   render() {
@@ -13,12 +13,13 @@ class App extends Component {
         <header>
             <Toolbar/>
         </header>
-        <Container style={{marginTop: '20px'}}>
+        <div style={{marginTop: '20px'}}>
             <Switch>
-                <Route path="/" exact component={Products} />
-                <Route path="/products/new" exact component={NewProduct} />
+                <Route path="/" exact component={Items} />
+                <Route path="/items/new" exact component={NewItem} />
+                <Route path="/items/:id" exact component={fullInfo} />
             </Switch>
-        </Container>
+        </div>
       </Fragment>
     );
   }
