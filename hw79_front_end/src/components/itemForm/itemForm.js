@@ -1,13 +1,40 @@
 import React, {Component} from 'react';
+import {fetchItems, selectItem} from "../../store/actions/itemActions";
+import {connect} from "react-redux";
 
 class ItemForm extends Component {
-    state = {
-        name: '',
-        category: '',
-        place: '',
-        description: '',
-        image: null
-    };
+    constructor(props) {
+        super(props);
+        console.log('[ITEM-INFO] ',props.item);
+
+        if (props.item) {
+
+            console.log('SSSSS',props.categories);
+            this.state = {
+                ...props.item,
+                // category: props.categories[props.item[category_fk - 1]],
+                // place: props.places[props.item[place_fk - 1]]
+            };
+            console.log('WE ARE HERE');
+        } else {
+            this.state = {
+                name: '',
+                category: '',
+                place: '',
+                description: '',
+                image: null
+            };
+        }
+    }
+    //
+    // state = {
+    //     name: '',
+    //     category: '',
+    //     place: '',
+    //     description: '',
+    //     image: null
+    // };
+
 
     submitFormHandler = event => {
         event.preventDefault();
@@ -44,7 +71,7 @@ class ItemForm extends Component {
     };
 
     render() {
-        console.log(this.state);
+        console.log('[FORM:STATE]',this.state);
         return (
             <form onSubmit={this.submitFormHandler}>
                 <div className="form_child_div">
@@ -60,9 +87,8 @@ class ItemForm extends Component {
                     <label htmlFor="category">Категория</label>
                     <select id="category" onChange={this.selectChangeHandler}>
                         <option>--Выберите категорию--</option>
-                        <option value="1">Мебель</option>
-                        <option value="2">Компьютерное оборудование</option>
-                        <option value="3">Бытовая техника</option>
+                        {this.props.categories.map(item => <option value={item.id}>{item.name}</option>)}
+
                     </select>
                 </div>
                 <div className="form_child_div">
@@ -98,4 +124,14 @@ class ItemForm extends Component {
     }
 }
 
-export default ItemForm;
+const mapStateToProps = state => ({
+    categories: state.items.categories,
+    places: state.items.places,
+});
+
+const mapDispatchToProps = dispatch => ({
+    onFetchItems: () => dispatch(fetchItems()),
+    selectItem: (e) => dispatch(selectItem(e.currentTarget.id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemForm);

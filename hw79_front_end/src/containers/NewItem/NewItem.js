@@ -13,7 +13,7 @@ class NewItem extends Component {
     render() {
         return (
             <Fragment>
-                <h2>Создать новый предмет</h2>
+                {this.props.item ? <h2>Изменить предмет</h2> : <h2>Создать новый предмет</h2>}
                 <ItemForm onSubmit={this.createItem} />
             </Fragment>
         );

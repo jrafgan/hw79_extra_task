@@ -5,6 +5,7 @@ import Items from "./containers/Items/Items";
 import NewItem from "./containers/NewItem/NewItem";
 import './App.css'
 import fullInfo from "./components/fullInfo/fullInfo";
+import EditItem from "./containers/EditItem/EditItem";
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
                 <Route path="/" exact component={Items} />
                 <Route path="/items/new" exact component={NewItem} />
                 <Route path="/items/:id" exact component={fullInfo} />
+                <Route path="/items/:id/edit" exact component={EditItem} />
             </Switch>
         </div>
       </Fragment>

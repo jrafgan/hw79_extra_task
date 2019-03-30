@@ -33,7 +33,7 @@ const createRouter = connection => {
         const place = req.body;
         place.id = nanoid();
 
-        connection.query('INSERT INTO `Places` (`Name`, `Description`) VALUES (?, ?)', [place.name, place.description], (error, results) => {
+        connection.query('INSERT INTO `Places` (`name`, `description`) VALUES (?, ?)', [place.name, place.description], (error, results) => {
             if (error) {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});

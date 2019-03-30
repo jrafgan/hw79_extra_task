@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {fetchItems, selectItem} from "../../store/actions/itemActions";
+import {fetchCategories, fetchItems, fetchPlaces, selectItem} from "../../store/actions/itemActions";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import ItemThumbnail from "../../components/itemThumbnail/itemThumbnail";
@@ -7,10 +7,11 @@ import ItemThumbnail from "../../components/itemThumbnail/itemThumbnail";
 class Items extends Component {
     componentDidMount() {
         this.props.onFetchItems();
+
     };
 
     render() {
-        console.log(this.props.items);
+        console.log(this.props.state);
         return (
            <Fragment>
                    <Link to="/items/new">
@@ -24,10 +25,10 @@ class Items extends Component {
                        <div className="thumbnail_div">
                            <ItemThumbnail image={item.image}/>
                            <Link to={'/items/' + item.id} onClick={this.props.selectItem} id={item.id}>
-                               {item.Name}
+                               {item.name}
                            </Link>
                            <strong>
-                               {item.Description}
+                               {item.description}
                            </strong>
                        </div>
                    </div>
@@ -39,11 +40,14 @@ class Items extends Component {
 }
 
 const mapStateToProps = state => ({
-   items: state.items.items
+   items: state.items.items,
+   state: state.items
 });
 
 const mapDispatchToProps = dispatch => ({
    onFetchItems: () => dispatch(fetchItems()),
+   onFetchCategories: () => dispatch(fetchCategories()),
+   onFetchPlaces: () => dispatch(fetchPlaces()),
    selectItem: (e) => dispatch(selectItem(e.currentTarget.id)),
 });
 

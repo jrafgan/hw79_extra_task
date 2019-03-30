@@ -33,7 +33,7 @@ const createRouter = connection => {
         const category = req.body;
         category.id = nanoid();
 
-        connection.query('INSERT INTO `Category` (`Name`, `Description`) VALUES (?, ?)', [category.name, category.description], (error, results) => {
+        connection.query('INSERT INTO `Category` (`name`, `description`) VALUES (?, ?)', [category.name, category.description], (error, results) => {
             if (error) {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});
@@ -49,7 +49,7 @@ const createRouter = connection => {
         const category = req.body;
         category.id = req.params.id;
 
-        connection.query('UPDATE `Categories` (`id`, `Name`, `Description`) VALUES (?, ?, ?)', [category.id, category.name, category.description], (error, results) => {
+        connection.query('UPDATE `Categories` (`id`, `name`, `description`) VALUES (?, ?, ?)', [category.id, category.name, category.description], (error, results) => {
             if (error) {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});

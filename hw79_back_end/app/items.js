@@ -34,7 +34,8 @@ const createRouter = connection => {
                 res.status(500).send({error: 'Database error'});
             }
             if (results[0]) {
-                res.send(results[0]);
+                // 'SELECT * FROM `Categories` WHERE `id` =  category_fk ?'
+                res.send(results[0]); // id name descr category place image
             } else {
                 res.status(404).send({error: 'Item not found'})
             }
@@ -51,7 +52,7 @@ const createRouter = connection => {
             console.log('image added');
         }
 
-        connection.query('INSERT INTO `Items` (`Name`, `Category_fk`, `Place_fk`, `Description`, `image`) VALUES (?, ?, ?, ?, ?)', [item.name, item.category, item.place, item.description, item.image], (error, results) => {
+        connection.query('INSERT INTO `Items` (`name`, `category_fk`, `place_fk`, `description`, `image`) VALUES (?, ?, ?, ?, ?)', [item.name, item.category, item.place, item.description, item.image], (error, results) => {
             if (error) {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});
@@ -71,7 +72,7 @@ const createRouter = connection => {
             item.image = req.file.filename;
         }
         //DELETE FROM `hw79_extra`.`Items` WHERE `id`='4';
-        connection.query('UPDATE `Items` WHERE id = ? (`Name`, `Category_fk`, `Place_fk`, `Description`, `image`) VALUES (?, ?, ?, ?, ?, ?)', [item.id, item.name, item.category, item.place, item.description, item.image], (error, results) => {
+        connection.query('UPDATE `Items` WHERE id = ? (`name`, `category_fk`, `place_fk`, `description`, `image`) VALUES (?, ?, ?, ?, ?, ?)', [item.id, item.name, item.category, item.place, item.description, item.image], (error, results) => {
             if (error) {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});
