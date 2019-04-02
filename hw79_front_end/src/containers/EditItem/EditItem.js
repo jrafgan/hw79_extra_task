@@ -1,25 +1,33 @@
 import React, {Component, Fragment} from 'react';
 import ItemForm from "../../components/itemForm/itemForm";
 import {connect} from "react-redux";
-import {fetchCategories, fetchItem, fetchPlaces} from "../../store/actions/itemActions";
+import {fetchItem, fetchCategories, fetchPlaces, putItem} from "../../store/actions/itemActions";
 
 class EditItem extends Component {
     componentDidMount() {
         this.props.fetchItem(this.props.match.params.id);
+        this.props.fetchCategories();
+        this.props.fetchPlaces();
     }
 
+    changeItem = itemData => {
+        console.log(this.props.match);
+        console.log(itemData);
+        this.props.putItem(this.props.match.params.id, itemData).then(() => {
+            this.props.history.push('/');
+        });
+    };
+
     render() {
-        if (!this.props.item) {
-            return <div>Loading...</div>
-        }
 
         return (
             <Fragment>
-                <h1>Edit page</h1>
+                <h1>Изменить предмет</h1>
                 <ItemForm
                     item={this.props.item}
                     categories={this.props.categories}
                     places={this.props.places}
+                    onSubmit={this.changeItem}
                 />
             </Fragment>
         );
@@ -28,14 +36,17 @@ class EditItem extends Component {
 
 
 const mapStateToProps = state => ({
-    item: state.items.item, // {id: awkdlkaw, name: awjdiajwd, category:
+    item: state.items.item,
     categories: state.items.categories,
     places: state.items.places
 
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchItem: (id) => dispatch(fetchItem(id))
+    fetchItem: (id) => dispatch(fetchItem(id)),
+    fetchCategories: () => dispatch(fetchCategories()),
+    fetchPlaces: () => dispatch(fetchPlaces()),
+    putItem: (id, itemData) => dispatch(putItem(id, itemData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditItem);

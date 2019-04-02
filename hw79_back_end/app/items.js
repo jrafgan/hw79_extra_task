@@ -19,13 +19,13 @@ const createRouter = connection => {
     const router = express.Router();
 
     router.get('/', (req, res) => {
-        connection.query('SELECT * FROM `Items`', (error, results) => {
-            if (error) {
-                res.status(500).send({error: 'Database error'});
-            }
-            res.send(results);
-        });
 
+            connection.query('SELECT * FROM `Items`', (error, results) => {
+                if (error) {
+                    res.status(500).send({error: 'Database error'});
+                }
+                res.send(results);
+            });
     });
 
     router.get('/:id', (req, res) => {
@@ -34,8 +34,7 @@ const createRouter = connection => {
                 res.status(500).send({error: 'Database error'});
             }
             if (results[0]) {
-                // 'SELECT * FROM `Categories` WHERE `id` =  category_fk ?'
-                res.send(results[0]); // id name descr category place image
+                res.send(results[0]);
             } else {
                 res.status(404).send({error: 'Item not found'})
             }
@@ -45,11 +44,9 @@ const createRouter = connection => {
     router.post('/', upload.single('image'), (req, res) => {
         console.log(req.body);
         const item = req.body;
-        item.id = nanoid();
 
         if (req.file) {
             item.image = req.file.filename;
-            console.log('image added');
         }
 
         connection.query('INSERT INTO `Items` (`name`, `category_fk`, `place_fk`, `description`, `image`) VALUES (?, ?, ?, ?, ?)', [item.name, item.category, item.place, item.description, item.image], (error, results) => {
@@ -57,27 +54,40 @@ const createRouter = connection => {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});
             } else {
-                res.send({message: 'OK'});
+                res.send({message: 'New item added'});
             }
 
         });
     });
 
     router.put('/:id', upload.single('image'), (req, res) => {
-        console.log(req.body);
         const item = req.body;
         item.id = req.params.id;
 
         if (req.file) {
             item.image = req.file.filename;
         }
-        //DELETE FROM `hw79_extra`.`Items` WHERE `id`='4';
-        connection.query('UPDATE `Items` WHERE id = ? (`name`, `category_fk`, `place_fk`, `description`, `image`) VALUES (?, ?, ?, ?, ?, ?)', [item.id, item.name, item.category, item.place, item.description, item.image], (error, results) => {
+        connection.query('UPDATE `Items` SET `name`= ?, `category_fk`= ?, `place_fk`= ?, `description`= ?, `image`= ? WHERE `id`= ?', [item.name, item.category, item.place, item.description, item.image, item.id], (error, results) => {
             if (error) {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});
             } else {
-                res.send({message: 'OK'});
+                res.send({message: `Item ${item.id} has changed`});
+            }
+
+        });
+    });
+
+    router.delete('/:id', (req, res) => {
+        const item = req.body;
+        item.id = req.params.id;
+
+        connection.query('DELETE FROM `Items` WHERE `id`= ?', item.id, (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).send({error: 'Database error'});
+            } else {
+                res.send({message: `Item ${item.id} deleted`});
             }
 
         });

@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {fetchCategories, fetchItems, fetchPlaces, selectItem} from "../../store/actions/itemActions";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
@@ -7,26 +7,18 @@ import ItemThumbnail from "../../components/itemThumbnail/itemThumbnail";
 class Items extends Component {
     componentDidMount() {
         this.props.onFetchItems();
-
     };
 
     render() {
         console.log(this.props.state);
         return (
-           <Fragment>
-                   <Link to="/items/new">
-                        <button>
-                            Добавить предмет
-                        </button>
-                   </Link>
-
+           <div className="items_div">
+                   <Link to="/items/new" className="add_item_btn">Добавить предмет</Link>
                {this.props.items.map(item => (
                    <div key={item.id} style={{marginTop: '10px'}}>
                        <div className="thumbnail_div">
                            <ItemThumbnail image={item.image}/>
-                           <Link to={'/items/' + item.id} onClick={this.props.selectItem} id={item.id}>
-                               {item.name}
-                           </Link>
+                           <Link to={'/items/' + item.id} onClick={this.props.selectItem} id={item.id}>{item.name}</Link>
                            <strong>
                                {item.description}
                            </strong>
@@ -34,7 +26,7 @@ class Items extends Component {
                    </div>
                ))}
 
-           </Fragment>
+           </div>
         );
     }
 }

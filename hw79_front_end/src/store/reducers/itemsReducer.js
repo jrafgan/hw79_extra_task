@@ -1,16 +1,20 @@
 import {
     FETCH_CATEGORIES_SUCCESS,
+    FETCH_CATEGORY_SUCCESS,
     FETCH_ITEM_SUCCESS,
-    FETCH_ITEMS_SUCCESS,
+    FETCH_ITEMS_SUCCESS, FETCH_PLACE_SUCCESS,
     FETCH_PLACES_SUCCESS,
     GET_ITEM
 } from "../actions/itemActions";
 
 const initialState = {
     items: [],
-    categories: [],
-    places: [],
     item: null,
+    categories: [],
+    category: null,
+    places: [],
+    place: null,
+
 };
 
 const itemsReducer = (state = initialState, action) => {
@@ -24,8 +28,16 @@ const itemsReducer = (state = initialState, action) => {
         case FETCH_CATEGORIES_SUCCESS:
             return {...state, categories: action.categories};
 
+        case FETCH_CATEGORY_SUCCESS:
+            console.log('this is category success', action.category);
+            return {...state, category: action.category};
+
         case FETCH_PLACES_SUCCESS:
             return {...state, places: action.places};
+
+        case FETCH_PLACE_SUCCESS:
+            console.log('this is place success ', action.place);
+            return {...state, place: action.place};
 
         case GET_ITEM:
             console.log(action.id);

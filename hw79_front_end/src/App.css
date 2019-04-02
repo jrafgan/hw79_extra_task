@@ -1,3 +1,7 @@
+body {
+    padding: 20px;
+}
+
 .form_child_div {
     display: grid;
     grid-template-columns: 200px auto;
@@ -6,10 +10,44 @@
 
 .thumbnail_div {
     display: grid;
-    grid-template-columns: 120px 150px 200px;
+    grid-template-columns: 120px 150px auto;
 }
 
 .fullInfo_div {
     display: grid;
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(4, auto);
+}
+.items_div {
+    display: grid;
+}
+
+.add_item_btn {
+    display: grid;
+    justify-self: right;
+}
+
+.fullInfo_div_child {
+    padding: 0 10px;
+}
+
+.fullInfo_link_div {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 20px 0;
+}
+
+.fullInfo_change_link {
+    display: grid;
+    justify-self: right;
+}
+
+.fullInfo_delete_link {
+    display: grid;
+    justify-self: left;
+}
+
+.img_thumbnail {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
 }

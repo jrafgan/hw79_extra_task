@@ -56,3 +56,22 @@ INSERT INTO `Items` (`id`, `name`, `category_fk`, `place_fk`, `description`, `im
   	(2, 'ноутбук', 2, 2, '3 штука', 'http://pomoshkomp.ru/wp-content/uploads/2014/08/324.jpg'),
   	(3, 'микроволновка', 3, 3, '2 штука', 'http://vybortech.ru/wp-content/uploads/2015/07/1680_0.jpg')
     ;
+
+ALTER TABLE `Items`
+DROP FOREIGN KEY `category_id_fk`,
+DROP FOREIGN KEY `place_id_fk`;
+ALTER TABLE `Items`
+CHANGE COLUMN `category_fk` `category_fk` INT(11) NULL ,
+CHANGE COLUMN `place_fk` `place_fk` INT(11) NULL ,
+DROP INDEX `category_id_fk_idx` ;
+ALTER TABLE `Items`
+ADD CONSTRAINT `category_id_fk`
+  FOREIGN KEY (`place_fk` , `category_fk`)
+  REFERENCES `Categories` (`id` , `id`)
+  ON DELETE RESTRICT
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `place_id_fk`
+  FOREIGN KEY (`place_fk`)
+  REFERENCES `Places` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
