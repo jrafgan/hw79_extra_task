@@ -3,9 +3,7 @@ import {
     FETCH_CATEGORY_SUCCESS,
     FETCH_ITEM_SUCCESS,
     FETCH_ITEMS_SUCCESS, FETCH_PLACE_SUCCESS,
-    FETCH_PLACES_SUCCESS,
-    GET_ITEM
-} from "../actions/itemActions";
+    FETCH_PLACES_SUCCESS} from "../actions/itemActions";
 
 const initialState = {
     items: [],
@@ -36,14 +34,7 @@ const itemsReducer = (state = initialState, action) => {
             return {...state, places: action.places};
 
         case FETCH_PLACE_SUCCESS:
-            console.log('this is place success ', action.place);
             return {...state, place: action.place};
-
-        case GET_ITEM:
-            console.log(action.id);
-            const ndx = state.items.findIndex(item=>item.id == action.id);
-            console.log(ndx);
-            return {...state, item: state.items[ndx]};
 
         default:
             return state;

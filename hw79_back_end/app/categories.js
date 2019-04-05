@@ -31,9 +31,8 @@ const createRouter = connection => {
     router.post('/', (req, res) => {
         console.log(req.body);
         const category = req.body;
-        category.id = nanoid();
 
-        connection.query('INSERT INTO `Category` (`name`, `description`) VALUES (?, ?)', [category.name, category.description], (error, results) => {
+        connection.query('INSERT INTO `Categories` (`name`, `description`) VALUES (?, ?)', [category.name, category.description], (error, results) => {
             if (error) {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});
@@ -49,12 +48,27 @@ const createRouter = connection => {
         const category = req.body;
         category.id = req.params.id;
 
-        connection.query('UPDATE `Categories` (`id`, `name`, `description`) VALUES (?, ?, ?)', [category.id, category.name, category.description], (error, results) => {
+        connection.query('UPDATE `Categories` SET `name`= ?, `description`= ? WHERE `id`= ?', [category.name, category.description, category.id], (error, results) => {
             if (error) {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});
             } else {
                 res.send({message: 'OK'});
+            }
+
+        });
+    });
+
+    router.delete('/:id', (req, res) => {
+        const category = req.body;
+        category.id = req.params.id;
+
+        connection.query('DELETE FROM `Categories` WHERE `id`= ?', category.id, (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).send({error: 'Database error'});
+            } else {
+                res.send({message: `Item ${category.id} deleted`});
             }
 
         });

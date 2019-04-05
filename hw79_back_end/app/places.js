@@ -31,7 +31,6 @@ const createRouter = connection => {
     router.post('/', (req, res) => {
         console.log(req.body);
         const place = req.body;
-        place.id = nanoid();
 
         connection.query('INSERT INTO `Places` (`name`, `description`) VALUES (?, ?)', [place.name, place.description], (error, results) => {
             if (error) {
@@ -39,6 +38,37 @@ const createRouter = connection => {
                 res.status(500).send({error: 'Database error'});
             } else {
                 res.send({message: 'OK'});
+            }
+
+        });
+    });
+
+    router.put('/:id', (req, res) => {
+        //console.log(req.params.id);
+        const place = req.body;
+        //place.id = req.params.id;
+
+        connection.query('UPDATE `Places` SET `name`= ?, `description`= ? WHERE `id`= ?', [place.name, place.description, place.id], (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).send({error: 'Database error'});
+            } else {
+                res.send({message: 'OK'});
+            }
+        });
+    });
+
+    router.delete('/:id', (req, res) => {
+        const place = req.body;
+        console.log(place);
+        place.id = req.params.id;
+
+        connection.query('DELETE FROM `Places` WHERE `id`= ?', place.id, (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).send({error: 'Database error'});
+            } else {
+                res.send({message: `Item ${place.id} deleted`});
             }
 
         });

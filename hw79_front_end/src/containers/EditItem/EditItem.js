@@ -11,8 +11,6 @@ class EditItem extends Component {
     }
 
     changeItem = itemData => {
-        console.log(this.props.match);
-        console.log(itemData);
         this.props.putItem(this.props.match.params.id, itemData).then(() => {
             this.props.history.push('/');
         });

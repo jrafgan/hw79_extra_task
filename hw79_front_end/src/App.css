@@ -30,9 +30,10 @@ body {
     padding: 0 10px;
 }
 
+.items_link_div,
 .fullInfo_link_div {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     margin: 20px 0;
 }
 
@@ -41,6 +42,7 @@ body {
     justify-self: right;
 }
 
+.change_fields_link,
 .fullInfo_delete_link {
     display: grid;
     justify-self: left;
@@ -50,4 +52,54 @@ body {
     width: 100px;
     height: 100px;
     margin-right: 10px;
+}
+
+.fields_list_div {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.category_p,
+.place_p {
+    color: #007bff;
+}
+
+.category_p:hover,
+.place_p:hover {
+    cursor: pointer;
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.fields_form {
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.each_item_div {
+    display: grid;
+    grid-template-columns: 300px auto;
+}
+
+.category_dlt_btn,
+.place_dlt_btn {
+    display: grid;
+    align-self: start;
+    width: fit-content;
+}
+
+.add_field_btn_div {
+    display: grid;
+    margin: 20px 0;
+}
+
+.add_field_btn{
+    display: grid;
+    justify-self: center;
+}
+
+.field_save_btn {
+    display: grid;
+    justify-self: center;
+    margin-top: 20px;
 }

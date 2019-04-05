@@ -58,20 +58,8 @@ INSERT INTO `Items` (`id`, `name`, `category_fk`, `place_fk`, `description`, `im
     ;
 
 ALTER TABLE `Items`
-DROP FOREIGN KEY `category_id_fk`,
-DROP FOREIGN KEY `place_id_fk`;
-ALTER TABLE `Items`
-CHANGE COLUMN `category_fk` `category_fk` INT(11) NULL ,
-CHANGE COLUMN `place_fk` `place_fk` INT(11) NULL ,
-DROP INDEX `category_id_fk_idx` ;
-ALTER TABLE `Items`
-ADD CONSTRAINT `category_id_fk`
-  FOREIGN KEY (`place_fk` , `category_fk`)
-  REFERENCES `Categories` (`id` , `id`)
-  ON DELETE RESTRICT
-  ON UPDATE CASCADE,
-ADD CONSTRAINT `place_id_fk`
-  FOREIGN KEY (`place_fk`)
-  REFERENCES `Places` (`id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
+CHANGE COLUMN `category_fk` `category_fk` INT(11) NOT NULL ,
+CHANGE COLUMN `place_fk` `place_fk` INT(11) NOT NULL ;
+
+ALTER TABLE `Categories`
+CHANGE COLUMN `description` `description` VARCHAR(45) NULL ;

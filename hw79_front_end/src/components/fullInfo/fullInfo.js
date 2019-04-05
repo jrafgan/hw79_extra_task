@@ -11,7 +11,6 @@ class FullInfo extends Component {
     };
 
     onDeleteItem = () => {
-        console.log(this.props.match.params.id);
         this.props.deleteItem(this.props.match.params.id).then(() => {
             this.props.history.push('/');
         });

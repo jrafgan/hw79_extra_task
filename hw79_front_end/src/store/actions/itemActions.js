@@ -15,8 +15,6 @@ export const fetchCategoriesSuccess = categories => ({type: FETCH_CATEGORIES_SUC
 export const fetchCategorySuccess = category => ({type: FETCH_CATEGORY_SUCCESS, category});
 export const fetchPlacesSuccess = places => ({type: FETCH_PLACES_SUCCESS, places});
 export const fetchPlaceSuccess = place => ({type: FETCH_PLACE_SUCCESS, place});
-export const selectItem = id => ({type: GET_ITEM, id});
-
 export const fetchItems = () => {
     return dispatch => {
         return axios.get('/items').then(
@@ -45,25 +43,21 @@ export const createItem = itemData => {
 
 export const putItem = (id, itemData) => {
     return dispatch => {
-        console.log(itemData);
         return axios.put('/items/' + id, itemData);
     };
 };
 
 export const deleteItem = (id) => {
     return dispatch => {
-        console.log(id);
         return axios.delete('/items/' + id);
     };
 };
 
 export const fetchCategories = () => {
     return dispatch => {
-        console.log();
         return axios.get('/categories').then(
             response => {
                 dispatch(fetchCategoriesSuccess(response.data));
-                console.log('Категории  ', response.data);
             });
     }
 };
@@ -77,12 +71,29 @@ export const fetchCategory = id => {
     }
 };
 
+export const putCategory = (id, categoryData) => {
+    return dispatch => {
+        return axios.put('/categories/' + id, categoryData);
+    };
+};
+
+export const deleteCategory = (id) => {
+    return dispatch => {
+        return axios.delete('/categories/' + id);
+    };
+};
+
+export const createCategory = categoryData => {
+    return dispatch => {
+        return axios.post('/categories', categoryData);
+    };
+};
+
 export const fetchPlaces = () => {
     return dispatch => {
         return axios.get('/places').then(
             response => {
                 dispatch(fetchPlacesSuccess(response.data));
-                console.log('Места  ', response.data);
             });
     }
 };
@@ -96,3 +107,20 @@ export const fetchPlace = id => {
     }
 };
 
+export const putPlace = (id, placeData) => {
+    return dispatch => {
+        return axios.put('/places/' + id, placeData);
+    };
+};
+
+export const deletePlace = (id) => {
+    return dispatch => {
+        return axios.delete('/places/' + id);
+    };
+};
+
+export const createPlace = placeData => {
+    return dispatch => {
+        return axios.post('/places', placeData);
+    };
+};
